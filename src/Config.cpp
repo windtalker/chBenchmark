@@ -40,7 +40,8 @@ int Config::WARMUP_DURATION_IN_S=-1;
 int Config::TEST_DURATION_IN_S=-1;
 string Config::INITIAL_DB_CREATION_PATH;
 string Config::OUTPUT_PATH;
-string Config::STORE_TYPE;
+string Config::STORE_TYPE = "auto";
+string Config::DIALECT;
 int Config::SKIP_SCHEMA_INIT=0;
 
 
@@ -142,12 +143,15 @@ bool Config::initialize(int argc, char* argv[]){
 		if(!is("-op",argc,argv,&OUTPUT_PATH))
 			return 0;
 
-		//Store type
-		if(!is("-st",argc,argv,&STORE_TYPE))
+		//dialect
+		if(!is("-dialect",argc,argv,&DIALECT))
 			return 0;
 
-		//skip schema init 
-		!is("-ssi",argc,argv,&SKIP_SCHEMA_INIT);
+		//Store type, optinal
+		is("-st",argc,argv,&STORE_TYPE);
+
+		//skip schema init, optinal
+		is("-ssi",argc,argv,&SKIP_SCHEMA_INIT);
 
 		Log::l1() << Log::tm() << "Config:\n";
 		Log::l1() << Log::tm() << "-data source name: " << DATA_SOURCE_NAME << "\n";
@@ -159,6 +163,7 @@ bool Config::initialize(int argc, char* argv[]){
 		Log::l1() << Log::tm() << "-warmup duration [s]: " << WARMUP_DURATION_IN_S << "\n";
 		Log::l1() << Log::tm() << "-initial db creation path: " << INITIAL_DB_CREATION_PATH << "\n";
 		Log::l1() << Log::tm() << "-output path: " << OUTPUT_PATH << "\n";
+		Log::l1() << Log::tm() << "-dialect: " << DIALECT << "\n";
 		Log::l1() << Log::tm() << "-store type: " << STORE_TYPE << "\n";
 		Log::l1() << Log::tm() << "-skip schema init: " << SKIP_SCHEMA_INIT << "\n";
 
@@ -239,6 +244,10 @@ int Config::getSkipSchemaInit(){
 
 string Config::getOutputPath(){
 	return OUTPUT_PATH;
+}
+
+string Config::getDialect(){
+	return DIALECT;
 }
 
 string Config::getStoreType(){

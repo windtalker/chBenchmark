@@ -430,7 +430,7 @@ int main(int argc, char* argv[]){
 
 		ofstream resultStream;
     		auto timeStr = return_current_time_and_date();
-		std::string resultFileName = (Config::getOutputPath()+"/Results_wh_" + std::to_string(Config::getWarehouseCount()) + "_tp_" + std::to_string(Config::getTransactionalClients())
+		std::string resultFileName = (Config::getOutputPath()+"/" + Config::getDialect() + "_results_wh_" + std::to_string(Config::getWarehouseCount()) + "_tp_" + std::to_string(Config::getTransactionalClients())
                         + "_ap_" + std::to_string(Config::getAnalyticalClients()) + "_storeType_" + Config::getStoreType() + "_" + timeStr + ".csv").c_str();
 		resultStream.open(resultFileName);
 		resultStream << "System Under Test;" << Config::getDataSourceName() << endl;

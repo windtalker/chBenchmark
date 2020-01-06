@@ -40,6 +40,7 @@ class Config{
 		static std::string INITIAL_DB_CREATION_PATH;
 		static std::string OUTPUT_PATH;
 		static std::string STORE_TYPE;
+		static std::string DIALECT;
 		static int SKIP_SCHEMA_INIT;
 		
 		static const char CSV_DELIMITER = '|';
@@ -70,6 +71,7 @@ class Config{
 		static int getSkipSchemaInit();
 		static char getCsvDelim();
 		static std::string getStoreType();
+		static std::string getDialect();
 
 };
 

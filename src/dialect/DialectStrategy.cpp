@@ -14,6 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+#include "../Config.h"
 #include "DialectStrategy.h"
 #include "HanaDialect.h"
 #include "TiDBDialect.h"
@@ -21,7 +22,15 @@ limitations under the License.
 Dialect* DialectStrategy::instance = 0;
 
 Dialect* DialectStrategy::getInstance(){
-if(instance == 0)
-	instance = new TiDBDialect();
+	if(instance == 0)
+	{
+		if (Config::getDialect() == "tidb")
+			instance = new TiDBDialect();
+		else if (Config::getDialect() == "hana")
+			instance = new HanaDialect();
+		else
+		//use tidb as the default dialect
+			instance = new TiDBDialect();
+	}
 	return instance;
 }
